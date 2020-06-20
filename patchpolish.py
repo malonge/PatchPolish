@@ -63,13 +63,22 @@ def main():
 
     # Cut out the patch + flanking sequence
     log("extracting patch")
-    flank_size = 100000
+    #  TODO change to 100k flank sizes
+    left_flank_size = 50000
+    right_flank_size = 50000
 
     ff_ref = pysam.FastaFile(reference_file)
     patch_chr_len = ff_ref.get_reference_length(patch_chr)
 
-    patch_start_flank = max(patch_start - flank_size, 0)
-    patch_end_flank = min(patch_end + flank_size, patch_chr_len)
+    patch_start_flank = patch_start - left_flank_size
+    if patch_start_flank < 0:
+        patch_start_flank = 0
+        left_flank_size = patch_start
+
+    patch_end_flank = patch_end + right_flank_size
+    if patch_end_flank > patch_chr_len:
+        patch_end_flank = patch_chr_len
+        right_flank_size = patch_chr_len - patch_end
 
     basename = make_coord_name(patch_chr, patch_start_flank, patch_end_flank)
     with open(output_path + basename + ".fasta", "w") as f:
@@ -98,6 +107,14 @@ def main():
     os.chdir(output_path)
     run_oe(cmd, output_path + basename + ".medaka.out", output_path + basename + ".medaka.err")
     os.chdir(cwd)
+
+    # Filter the vcf
+    cmd = [
+        "tabix",
+        output_path + basename + "_medaka/variants.vcf.gz",
+        basename + ":" + str(left_flank_size) + "-" + str(left_flank_size + (patch_end-patch_start))
+    ]
+    run_oe(cmd, output_path + basename + "_medaka/variants.patch.vcf", output_path + basename + "_medaka/tabix.err")
 
 
 if __name__ == "__main__":

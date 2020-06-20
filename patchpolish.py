@@ -59,8 +59,10 @@ def main():
     patch_chr = "chr17"
     patch_start = 24831095
     patch_end = 24835982
+    log("polishing patch {}:{}-{}".format(patch_chr, patch_start, patch_end))
 
     # Cut out the patch + flanking sequence
+    log("extracting patch")
     flank_size = 100000
 
     ff_ref = pysam.FastaFile(reference_file)
@@ -75,6 +77,7 @@ def main():
         f.write(ff_ref.fetch(patch_chr, patch_start_flank, patch_end_flank) + "\n")
 
     # Write the supporting reads to a fasta file
+    log("extracting supporting reads")
     ff_reads = pysam.FastaFile(reads_file)
     with open(output_path + basename + ".reads.fasta", "w") as f:
         for i in supp_reads:
@@ -92,7 +95,9 @@ def main():
         "-o",
         basename + "_medaka"
     ]
-    run_oe(cmd, output_path + basename + "medaka.out", output_path + basename + "medaka.err")
+    os.chdir(output_path)
+    run_oe(cmd, output_path + basename + ".medaka.out", output_path + basename + ".medaka.err")
+    os.chdir(cwd)
 
 
 if __name__ == "__main__":

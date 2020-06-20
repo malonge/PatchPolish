@@ -92,7 +92,7 @@ def main():
         "-o",
         basename + "_medaka"
     ]
-    #run_oe(cmd, output_path + basename + "medaka.out", output_path + basename + "medaka.err")
+    run_oe(cmd, output_path + basename + "medaka.out", output_path + basename + "medaka.err")
 
 
 if __name__ == "__main__":

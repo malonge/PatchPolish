@@ -111,6 +111,7 @@ def main():
     # Filter the vcf
     cmd = [
         "tabix",
+        "-h",
         output_path + basename + "_medaka/variants.vcf.gz",
         basename + ":" + str(left_flank_size) + "-" + str(left_flank_size + (patch_end-patch_start))
     ]

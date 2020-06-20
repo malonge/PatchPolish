@@ -113,9 +113,14 @@ def main():
         "tabix",
         "-h",
         output_path + basename + "_medaka/variants.vcf.gz",
-        basename + ":" + str(left_flank_size) + "-" + str(left_flank_size + (patch_end-patch_start))
+        basename + ":" + str(left_flank_size + 1) + "-" + str(left_flank_size + (patch_end-patch_start))
     ]
     run_oe(cmd, output_path + basename + "_medaka/variants.patch.vcf", output_path + basename + "_medaka/tabix.err")
+
+    # TODO
+    # write a separate script to lift over the coordinates and to update the contig name
+    # when updating contigs, probably want to add  all possible contigs in original reference fasta
+    # that way, vcfs on diff chromosomes can be merged at end.
 
 
 if __name__ == "__main__":

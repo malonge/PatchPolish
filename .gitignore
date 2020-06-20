@@ -1,0 +1,5 @@
+.idea
+*.fasta
+*.fai
+*.fa
+patchpolish_output

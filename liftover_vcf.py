@@ -10,13 +10,11 @@ def main():
     parser.add_argument("fai", metavar="<contigs.fasta.fai>", type=str, help="fai file with all reference sequences.")
     parser.add_argument("-c", metavar="STR", type=str, help="liftover contig")
     parser.add_argument("-f", metavar="INT", type=int, help="liftover offset")
-    parser.add_argument("-o", metavar="STR", type=str, help="output directory")
 
     args = parser.parse_args()
 
     vcf_file = os.path.abspath(args.vcf)
     fai_file = os.path.abspath(args.fai)
-    output_path = args.o
 
     # Load the ctgs
     ctg_lens = dict()

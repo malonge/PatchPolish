@@ -115,10 +115,16 @@ def main():
     ]
     run_oe(cmd, output_path + basename + "_medaka/variants.patch.vcf", output_path + basename + "_medaka/tabix.err")
 
-    # TODO
-    # write a separate script to lift over the coordinates and to update the contig name
-    # when updating contigs, probably want to add  all possible contigs in original reference fasta
-    # that way, vcfs on diff chromosomes can be merged at end.
+    cmd = [
+        "python liftover_vcf.py",
+        output_path + basename + "_medaka/variants.patch.vcf",
+        reference_file + ".fai",
+        "-c",
+        patch_chr,
+        "-f",
+        patch_start_flank
+    ]
+    run_oe(cmd, output_path + basename + "variants.patchpolish.vcf", output_path + "liftover.err")
 
 
 if __name__ == "__main__":

@@ -14,9 +14,7 @@ def make_coord_name(h, s, e):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Reference-guided misassembly correction',
-                                     usage="ragtag.py correct <reference.fa> <query.fa>")
-
+    parser = argparse.ArgumentParser(description="Polish specified patch regions with supporting reads", usage="patchpolish.py <reference.fa> <reads.fa> <patches.bed>")
     parser.add_argument("reference", metavar="<patched_chromosomes.fa>", nargs='?', default="", type=str, help="reference fasta file containing raw patches. must not be gzipped.")
     parser.add_argument("reads", metavar="<ont_reads.fa>", nargs='?', default="", type=str, help="reads. must not be gzipped.")
     parser.add_argument("-o", metavar="STR", type=str, default="patchpolish_output", help="output directory [patchpolish_output]")

@@ -122,7 +122,7 @@ def main():
         "-c",
         patch_chr,
         "-f",
-        patch_start_flank
+        str(patch_start_flank)
     ]
     run_oe(cmd, output_path + basename + "variants.patchpolish.vcf", output_path + "liftover.err")
 

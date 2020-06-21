@@ -49,3 +49,7 @@ def main():
                 fields[0] = lo_ctg
                 fields[1] = str(int(fields[1]) + lo_offset)
                 print("\t".join(fields))
+
+
+if __name__ == "__main__":
+    main()

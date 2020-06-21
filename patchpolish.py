@@ -116,7 +116,8 @@ def main():
     run_oe(cmd, output_path + basename + "_medaka/variants.patch.vcf", output_path + basename + "_medaka/tabix.err")
 
     cmd = [
-        "python /seq/schatz/malonge/CHM13/PatchPolish/liftover_vcf.py",
+        "python",
+        "/seq/schatz/malonge/CHM13/PatchPolish/liftover_vcf.py",
         output_path + basename + "_medaka/variants.patch.vcf",
         reference_file + ".fai",
         "-c",
@@ -124,7 +125,7 @@ def main():
         "-f",
         str(patch_start_flank)
     ]
-    run_oe(cmd, output_path + basename + "variants.patchpolish.vcf", output_path + "liftover.err")
+    run_oe(cmd, output_path + basename + ".variants.patchpolish.vcf", output_path + "liftover.err")
 
 
 if __name__ == "__main__":

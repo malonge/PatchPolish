@@ -1,4 +1,7 @@
 .idea
+PatchPolish.egg-info
+build
+dist
 *.fasta
 *.fai
 *.fa
